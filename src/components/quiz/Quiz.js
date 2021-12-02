@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import * as data from "./codes.json";
 
 export default function Quiz() {
-	// function returning random number
+	// function returning a random number
 	const random = (min, max) => {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
@@ -82,6 +82,18 @@ export default function Quiz() {
 		generateQuestions();
 	}, [maxQuestion]);
 
+	// Array with correct past answers
+	const [pastAnswers, setPastAnswers] = useState([]);
+
+	useEffect(() => {
+		if (pastAnswers.indexOf(questions[number]) == -1) {
+			pastAnswers.push(questions[number]);
+			console.log(pastAnswers);
+		} else {
+			console.log(pastAnswers);
+		}
+	}, [questionNumber]);
+
 	// next question
 	const nextFlag = () => {
 		if (number !== countries.length - 1 && questionNumber < maxQuestion) {
@@ -133,6 +145,7 @@ export default function Quiz() {
 		setNumber(0);
 		setQuestions([]);
 		generateQuestions();
+		setPastAnswers([]);
 	};
 
 	// the first page to choose the number of questions
