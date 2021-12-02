@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import * as data from "./codes.json";
+import "./Quiz.scss";
 
 export default function Quiz() {
 	// function returning a random number
@@ -83,16 +84,22 @@ export default function Quiz() {
 	}, [maxQuestion]);
 
 	// Array with correct past answers
-	const [pastAnswers, setPastAnswers] = useState([]);
+	const [pastCorrectAnswers, setPastCorrectAnswers] = useState([]);
 
+	// Array with past user answers
+	const [pastUserAnswers, setPastUserAnswers] = useState([]);
+
+	// Puts the correct answer in the array
 	useEffect(() => {
-		if (pastAnswers.indexOf(questions[number]) == -1) {
-			pastAnswers.push(questions[number]);
-			console.log(pastAnswers);
-		} else {
-			console.log(pastAnswers);
+		if (maxQuestion != null) {
+			if (pastCorrectAnswers.indexOf(questions[number]) == -1) {
+				pastCorrectAnswers.push(questions[number]);
+			}
+		} // this here works perfectly, don't touch
+		if (pastCorrectAnswers[0] == undefined) {
+			pastCorrectAnswers.shift();
 		}
-	}, [questionNumber]);
+	}, [questionNumber, maxQuestion, questions]);
 
 	// next question
 	const nextFlag = () => {
@@ -113,28 +120,26 @@ export default function Quiz() {
 	// When user checks correct answer
 	const correct = (event) => {
 		// sets the button color to green
-		event.target.style.backgroundColor = "green";
+		event.target.style.backgroundColor = "#7AE070";
 		// increases the score by 1
 		setScore((score) => score + 1);
 		// after 500ms the button color is set back to default and next question is displayed
 		setTimeout(() => {
+			// adds the correct answer to the array of past correct answers
+			pastUserAnswers.push(true);
 			nextFlag();
-			event.target.style.backgroundColor = "initial";
+			event.target.style.backgroundColor = "transparent";
 		}, 500);
 	};
 
 	// When user checks wrong answer
 	const incorrect = (event) => {
-		event.target.style.backgroundColor = "red";
+		event.target.style.backgroundColor = "#E86868";
 		setTimeout(() => {
+			pastUserAnswers.push(false);
 			nextFlag();
-			event.target.style.backgroundColor = "initial";
+			event.target.style.backgroundColor = "transparent";
 		}, 500);
-	};
-
-	// styles for the flag
-	const flagStyle = {
-		height: "100px"
 	};
 
 	//Play again, resets all variables to their initial state and generates new questions
@@ -144,43 +149,54 @@ export default function Quiz() {
 		setQuestionNumber(1);
 		setNumber(0);
 		setQuestions([]);
+		setPastCorrectAnswers([]);
+		setPastUserAnswers([]);
 		generateQuestions();
-		setPastAnswers([]);
 	};
 
 	// the first page to choose the number of questions
 	if (maxQuestion == null) {
 		return (
-			<div style={{ display: "flex", flexDirection: "column" }}>
-				<span>Please enter the number of questions you want to answer</span>
-				<button
-					onClick={() => {
-						setMaxQuestion(6);
-					}}
-				>
-					5
-				</button>
-				<button
-					onClick={() => {
-						setMaxQuestion(11);
-					}}
-				>
-					10
-				</button>
-				<button
-					onClick={() => {
-						setMaxQuestion(21);
-					}}
-				>
-					20
-				</button>
-				<button
-					onClick={() => {
-						setMaxQuestion(51);
-					}}
-				>
-					50
-				</button>
+			<div style={{ display: "grid", placeItems: "center", height: "75vh" }}>
+				<div className="card card__full">
+					<div className="card__heading">
+						<h1 className="card__header">How many questions do you choose?</h1>
+					</div>
+					<div className="card__buttons">
+						<button
+							className="button"
+							onClick={() => {
+								setMaxQuestion(6);
+							}}
+						>
+							5
+						</button>
+						<button
+							className="button"
+							onClick={() => {
+								setMaxQuestion(11);
+							}}
+						>
+							10
+						</button>
+						<button
+							className="button"
+							onClick={() => {
+								setMaxQuestion(21);
+							}}
+						>
+							20
+						</button>
+						<button
+							className="button"
+							onClick={() => {
+								setMaxQuestion(51);
+							}}
+						>
+							50
+						</button>
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -188,27 +204,64 @@ export default function Quiz() {
 	if (questionNumber !== maxQuestion) {
 		return (
 			<div style={{ display: "flex", flexDirection: "column" }}>
-				<span>
-					Question number: {questionNumber}, Current score: {score}
-				</span>
 				<button onClick={previousFlag}>Previous</button>
 				<button onClick={nextFlag}>Next</button>
-				<span>
+
+				<div className="card quiz__card">
+					<div className="quiz__heading">
+						<h1 className="quiz__header montserrat">{`Round ${questionNumber}`}</h1>
+						<span className="quiz__subheader">{`Current score: ${score}`}</span>
+					</div>
 					<img
 						src={`https://api.fern.fun/flagathon/flags/${
 							countriesCodes[questions[number]]
 						}/`}
-						style={flagStyle}
-						alt={`flag ${countries[questions[number]]}`}
+						className="quiz__flag"
+						alt={`flag`}
 					/>
-				</span>
-				{answer[questionNumber - 1]?.map((answer, index) => {
-					return answer == questions[number] ? (
-						<button onClick={correct}>{countries[answer]}</button>
-					) : (
-						<button onClick={incorrect}>{countries[answer]}</button>
-					);
-				})}
+
+					<div className="quiz__buttons">
+						{answer[questionNumber - 1]?.map((answer) => {
+							return answer == questions[number] ? (
+								<button
+									onClick={(event) => {
+										return pastUserAnswers[number] != undefined
+											? nextFlag()
+											: correct(event);
+									}}
+									key={answer}
+									style={{
+										backgroundColor:
+											pastUserAnswers[number] != undefined
+												? "#7AE070"
+												: "transparent"
+									}}
+									className="button"
+								>
+									{countries[answer]}
+								</button>
+							) : (
+								<button
+									onClick={(event) => {
+										return pastUserAnswers[number] != undefined
+											? nextFlag()
+											: incorrect(event);
+									}}
+									key={answer}
+									style={{
+										backgroundColor:
+											pastUserAnswers[number] != undefined
+												? "#E86868"
+												: "transparent"
+									}}
+									className="button"
+								>
+									{countries[answer]}
+								</button>
+							);
+						})}
+					</div>
+				</div>
 			</div>
 		);
 	}
