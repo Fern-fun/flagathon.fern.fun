@@ -1,0 +1,27 @@
+@use "../../variables.scss";
+
+.menu {
+	background-color: white;
+	position: sticky;
+	top: 5px;
+	width: calc(100% - 10px);
+	left: 5px;
+	display: grid;
+	grid-template-areas: "header hamburger" "nav nav";
+}
+
+.menu__header {
+	grid-area: header;
+}
+
+.menu__nav {
+	grid-area: nav;
+	display: none;
+
+	&-item {
+	}
+}
+
+.manu__hamburger {
+	grid-area: hamburger;
+}

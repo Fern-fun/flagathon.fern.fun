@@ -120,25 +120,25 @@ export default function Quiz() {
 	// When user checks correct answer
 	const correct = (event) => {
 		// sets the button color to green
-		event.target.style.backgroundColor = "#7AE070";
+		event.target.className += " correct";
 		// increases the score by 1
 		setScore((score) => score + 1);
 		// after 500ms the button color is set back to default and next question is displayed
 		setTimeout(() => {
 			// adds the correct answer to the array of past correct answers
-			pastUserAnswers.push(true);
+			pastUserAnswers.push([countries[questions[number]], true]);
 			nextFlag();
-			event.target.style.backgroundColor = "transparent";
+			event.target.className -= " correct";
 		}, 500);
 	};
 
 	// When user checks wrong answer
 	const incorrect = (event) => {
-		event.target.style.backgroundColor = "#E86868";
+		event.target.className += " incorrect";
 		setTimeout(() => {
-			pastUserAnswers.push(false);
+			pastUserAnswers.push([event.target.innerText, false]);
 			nextFlag();
-			event.target.style.backgroundColor = "transparent";
+			event.target.className -= " incorrect";
 		}, 500);
 	};
 
@@ -154,13 +154,17 @@ export default function Quiz() {
 		generateQuestions();
 	};
 
+	const [expanded, setExpanded] = useState(false);
+
 	// the first page to choose the number of questions
 	if (maxQuestion == null) {
 		return (
 			<div style={{ display: "grid", placeItems: "center", height: "75vh" }}>
-				<div className="card card__full">
+				<div className="card card__flex">
 					<div className="card__heading">
-						<h1 className="card__header">How many questions do you choose?</h1>
+						<h1 className="card__header montserrat">
+							How many questions do you choose?
+						</h1>
 					</div>
 					<div className="card__buttons">
 						<button
@@ -204,9 +208,6 @@ export default function Quiz() {
 	if (questionNumber !== maxQuestion) {
 		return (
 			<div style={{ display: "flex", flexDirection: "column" }}>
-				<button onClick={previousFlag}>Previous</button>
-				<button onClick={nextFlag}>Next</button>
-
 				<div className="card quiz__card">
 					<div className="quiz__heading">
 						<h1 className="quiz__header montserrat">{`Round ${questionNumber}`}</h1>
@@ -230,13 +231,9 @@ export default function Quiz() {
 											: correct(event);
 									}}
 									key={answer}
-									style={{
-										backgroundColor:
-											pastUserAnswers[number] != undefined
-												? "#7AE070"
-												: "transparent"
-									}}
-									className="button"
+									className={`button 
+										${pastUserAnswers[number] != undefined ? "correct" : ""}
+									`}
 								>
 									{countries[answer]}
 								</button>
@@ -248,13 +245,9 @@ export default function Quiz() {
 											: incorrect(event);
 									}}
 									key={answer}
-									style={{
-										backgroundColor:
-											pastUserAnswers[number] != undefined
-												? "#E86868"
-												: "transparent"
-									}}
-									className="button"
+									className={`button 
+										${pastUserAnswers[number] != undefined ? "incorrect" : ""}
+									`}
 								>
 									{countries[answer]}
 								</button>
@@ -262,18 +255,91 @@ export default function Quiz() {
 						})}
 					</div>
 				</div>
+				<div className="quiz__nav">
+					<button onClick={previousFlag} className="button outline">
+						Previous
+					</button>
+					{pastUserAnswers[number] != undefined ? (
+						<button onClick={nextFlag} className="button outline">
+							Next
+						</button>
+					) : null}
+				</div>
 			</div>
 		);
 	}
 	// page with the score
-	else if (questionNumber === maxQuestion) {
+	else if (questionNumber >= maxQuestion) {
 		return (
 			<div style={{ display: "flex", flexDirection: "column" }}>
-				<span>Score</span>
-				<button onClick={previousFlag}>Previous</button>
-				<button onClick={nextFlag}>Next</button>
-				<span>Your score is {score}</span>
-				<button onClick={playAgain}>Play again</button>
+				<div className="card card__flex montserrat">
+					<div className="card__heading">
+						<h1 className="card__header">Score</h1>
+					</div>
+					<div className="card__content">
+						<span>Your score: {score}</span>
+					</div>
+
+					<div className="card__buttons">
+						<button onClick={playAgain} className="button">
+							Play again
+						</button>
+					</div>
+					<div className="card__content">
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "row",
+								cursor: "pointer"
+							}}
+							onClick={() => {
+								setExpanded(!expanded);
+							}}
+						>
+							<h2 className="color">Your answers</h2>
+							<h2 className="icon color">
+								{expanded ? "expand_more" : "expand_less"}
+							</h2>
+						</div>
+						<div className={`answers${expanded ? "" : " answers__hidden"}`}>
+							{pastUserAnswers.map((answer, index) => {
+								return (
+									<div className="quiz__answer">
+										<h3 className="color" style={{ display: "flex" }}>
+											Question number {index + 1} |
+											{answer[1] === true ? (
+												<h3 className="icon" style={{ color: "#7ae070" }}>
+													done
+												</h3>
+											) : (
+												<h3 className="icon" style={{ color: "#e86868" }}>
+													close
+												</h3>
+											)}
+										</h3>
+										{answer[1] === false ? (
+											<span>
+												<b>Correct answer: </b>
+												{countries[pastCorrectAnswers[index]]}
+											</span>
+										) : null}
+									</div>
+								);
+							})}
+						</div>
+					</div>
+				</div>
+
+				<div className="quiz__nav">
+					<button onClick={previousFlag} className="button outline">
+						Previous
+					</button>
+					{pastUserAnswers[number] != undefined ? (
+						<button onClick={nextFlag} className="button outline">
+							Next
+						</button>
+					) : null}
+				</div>
 			</div>
 		);
 	}

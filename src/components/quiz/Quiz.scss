@@ -1,4 +1,4 @@
-@import "../../index.scss";
+@use "../../variables.scss" as *;
 
 .quiz__buttons {
 	width: 100%;
@@ -35,4 +35,52 @@
 
 .quiz__subheader {
 	color: transparentize($color: $primary-color, $amount: 0.4);
+}
+
+.quiz__nav {
+	// outline: 1px solid red;
+	position: fixed;
+	bottom: 0;
+	padding: 1rem 20px;
+	padding-top: 2rem;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+}
+
+.quiz__nav > .button {
+	flex-grow: 1;
+	flex-basis: 50%;
+}
+
+.quiz__answer {
+	border: 2px solid transparentize($color: $primary-color, $amount: 0.8);
+	border-radius: 10px;
+	padding: 1rem 1.6rem;
+}
+
+.correct {
+	background-color: #7ae070;
+	display: block;
+}
+
+.incorrect {
+	background-color: #e86868;
+	display: block;
+}
+
+div.answers__hidden {
+	transform: scaleY(0);
+	height: 0px;
+}
+.answers {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	transform: scaleY(1);
+	transform-origin: top;
+	height: auto;
+	transition: transform 0.3s;
+	overflow: hidden;
 }
