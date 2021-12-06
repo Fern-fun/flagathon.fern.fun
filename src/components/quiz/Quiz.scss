@@ -71,16 +71,19 @@
 }
 
 div.answers__hidden {
-	transform: scaleY(0);
-	height: 0px;
+	transition: max-height 0.3s ease 0.3s, transform 0.3s ease, opacity 0.2s ease;
+	transform: translateX(-100%);
+	opacity: 0;
+	max-height: 0px;
 }
 .answers {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	transform: scaleY(1);
-	transform-origin: top;
-	height: auto;
-	transition: transform 0.3s;
+	transform: translateX(0);
+	opacity: 1;
+	max-height: 1000px;
+	transition: max-height 0.3s ease, transform 0.3s ease 0.3s,
+		opacity 0.2s ease 0.3s;
 	overflow: hidden;
 }

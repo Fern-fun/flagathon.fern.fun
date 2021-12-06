@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Card from "../card/Card";
 import * as data from "./codes.json";
 import "./Quiz.scss";
+import { generateQuestions } from "./QuizFunctions";
 
 export default function Quiz() {
-	// function returning a random number
-	const random = (min, max) => {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
-
-	// function shuffling an array
-	const shuffleArray = (array) => {
-		for (var i = array.length - 1; i > 0; i--) {
-			var j = Math.floor(Math.random() * (i + 1));
-			var temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-		}
-	};
-
 	// User score
 	const [score, setScore] = useState(0);
 
@@ -36,43 +23,6 @@ export default function Quiz() {
 	// ISO3166 codes of the countries
 	const countriesCodes = Object.keys(data.default);
 
-	// function to generate random questions
-	const generateQuestions = () => {
-		const questions1 = [];
-		for (let i = 0; i < maxQuestion - 1; i++) {
-			const randomNumber = random(0, countries.length - 1);
-			if (questions1.indexOf(randomNumber) == -1) {
-				// console.log(i);
-				questions1.push(randomNumber);
-			} else {
-				i--;
-			}
-		}
-		setQuestions(questions1);
-
-		const answersGlobal = [];
-		for (let j = 0; j < maxQuestion - 1; j++) {
-			const answers = [];
-			for (let i = 0; i < 4; i++) {
-				const randomNumber = random(0, countries.length - 1);
-				if (answers.indexOf(randomNumber) == -1) {
-					if (i == 3) {
-						answers.push(questions1[j]);
-					} else {
-						answers.push(randomNumber);
-					}
-				} else {
-					i--;
-				}
-			}
-			answersGlobal.push(answers);
-		}
-		answersGlobal.map((item) => {
-			return shuffleArray(item);
-		});
-		setAnswer(answersGlobal);
-	};
-
 	// random countries serving as questions
 	const [questions, setQuestions] = useState([]);
 
@@ -80,7 +30,9 @@ export default function Quiz() {
 	const [answer, setAnswer] = useState([]);
 
 	useEffect(() => {
-		generateQuestions();
+		const i = generateQuestions(maxQuestion, countries);
+		setAnswer(i.answers);
+		setQuestions(i.questions);
 	}, [maxQuestion]);
 
 	// Array with correct past answers
@@ -92,11 +44,11 @@ export default function Quiz() {
 	// Puts the correct answer in the array
 	useEffect(() => {
 		if (maxQuestion != null) {
-			if (pastCorrectAnswers.indexOf(questions[number]) == -1) {
+			if (pastCorrectAnswers.indexOf(questions[number]) === -1) {
 				pastCorrectAnswers.push(questions[number]);
 			}
 		} // this here works perfectly, don't touch
-		if (pastCorrectAnswers[0] == undefined) {
+		if (pastCorrectAnswers[0] === undefined) {
 			pastCorrectAnswers.shift();
 		}
 	}, [questionNumber, maxQuestion, questions]);
@@ -119,6 +71,8 @@ export default function Quiz() {
 
 	// When user checks correct answer
 	const correct = (event) => {
+		// Blocks the user from clicking any other buttons
+		setButtonsDisabled(true);
 		// sets the button color to green
 		event.target.className += " correct";
 		// increases the score by 1
@@ -128,16 +82,19 @@ export default function Quiz() {
 			// adds the correct answer to the array of past correct answers
 			pastUserAnswers.push([countries[questions[number]], true]);
 			nextFlag();
+			setButtonsDisabled(false);
 			event.target.className -= " correct";
 		}, 500);
 	};
 
 	// When user checks wrong answer
 	const incorrect = (event) => {
+		setButtonsDisabled(true);
 		event.target.className += " incorrect";
 		setTimeout(() => {
 			pastUserAnswers.push([event.target.innerText, false]);
 			nextFlag();
+			setButtonsDisabled(false);
 			event.target.className -= " incorrect";
 		}, 500);
 	};
@@ -151,56 +108,47 @@ export default function Quiz() {
 		setQuestions([]);
 		setPastCorrectAnswers([]);
 		setPastUserAnswers([]);
-		generateQuestions();
 	};
 
+	// If the user answers section is expanded
 	const [expanded, setExpanded] = useState(false);
+
+	// If the buttons in the quiz are disabled after the answer
+	const [buttonsDisabled, setButtonsDisabled] = useState(false);
+
+	// Number of questions to be chosen
+	const numberOfQuestions = [5, 10, 20, 50];
+
+	// Number of questions to be generated
+	const questionNumberHandler = (event) => {
+		setMaxQuestion(Number(event.target.innerText) + 1);
+	};
 
 	// the first page to choose the number of questions
 	if (maxQuestion == null) {
 		return (
 			<div style={{ display: "grid", placeItems: "center", height: "75vh" }}>
-				<div className="card card__flex">
-					<div className="card__heading">
-						<h1 className="card__header montserrat">
-							How many questions do you choose?
-						</h1>
-					</div>
-					<div className="card__buttons">
-						<button
-							className="button"
-							onClick={() => {
-								setMaxQuestion(6);
-							}}
-						>
-							5
-						</button>
-						<button
-							className="button"
-							onClick={() => {
-								setMaxQuestion(11);
-							}}
-						>
-							10
-						</button>
-						<button
-							className="button"
-							onClick={() => {
-								setMaxQuestion(21);
-							}}
-						>
-							20
-						</button>
-						<button
-							className="button"
-							onClick={() => {
-								setMaxQuestion(51);
-							}}
-						>
-							50
-						</button>
-					</div>
-				</div>
+				<Card
+					flex
+					header={"How many questions do you choose?"}
+					buttons={
+						<>
+							{numberOfQuestions.map((number, index) => {
+								return (
+									<button
+										key={index}
+										className="button"
+										onClick={questionNumberHandler}
+									>
+										{number}
+									</button>
+								);
+							})}
+						</>
+					}
+				>
+					<div className="card__buttons"></div>
+				</Card>
 			</div>
 		);
 	}
@@ -223,30 +171,32 @@ export default function Quiz() {
 
 					<div className="quiz__buttons">
 						{answer[questionNumber - 1]?.map((answer) => {
-							return answer == questions[number] ? (
+							return answer === questions[number] ? (
 								<button
+									disabled={buttonsDisabled}
 									onClick={(event) => {
-										return pastUserAnswers[number] != undefined
+										return pastUserAnswers[number] !== undefined
 											? nextFlag()
 											: correct(event);
 									}}
 									key={answer}
 									className={`button 
-										${pastUserAnswers[number] != undefined ? "correct" : ""}
+										${pastUserAnswers[number] !== undefined ? "correct" : ""}
 									`}
 								>
 									{countries[answer]}
 								</button>
 							) : (
 								<button
+									disabled={buttonsDisabled}
 									onClick={(event) => {
-										return pastUserAnswers[number] != undefined
+										return pastUserAnswers[number] !== undefined
 											? nextFlag()
 											: incorrect(event);
 									}}
 									key={answer}
 									className={`button 
-										${pastUserAnswers[number] != undefined ? "incorrect" : ""}
+										${pastUserAnswers[number] !== undefined ? "incorrect" : ""}
 									`}
 								>
 									{countries[answer]}
@@ -259,7 +209,7 @@ export default function Quiz() {
 					<button onClick={previousFlag} className="button outline">
 						Previous
 					</button>
-					{pastUserAnswers[number] != undefined ? (
+					{pastUserAnswers[number] !== undefined ? (
 						<button onClick={nextFlag} className="button outline">
 							Next
 						</button>
@@ -334,7 +284,7 @@ export default function Quiz() {
 					<button onClick={previousFlag} className="button outline">
 						Previous
 					</button>
-					{pastUserAnswers[number] != undefined ? (
+					{pastUserAnswers[number] !== undefined ? (
 						<button onClick={nextFlag} className="button outline">
 							Next
 						</button>

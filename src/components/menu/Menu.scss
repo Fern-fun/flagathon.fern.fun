@@ -1,13 +1,20 @@
-@use "../../variables.scss";
+@use "../../variables.scss" as *;
 
 .menu {
 	background-color: white;
-	position: sticky;
 	top: 5px;
 	width: calc(100% - 10px);
 	left: 5px;
 	display: grid;
 	grid-template-areas: "header hamburger" "nav nav";
+	position: relative;
+	height: 74.4px;
+	transition: height 0.3s ease 0.3s;
+
+	&.active {
+		height: calc(74.4px + 159.6px + 5px);
+		transition: height 0.3s ease;
+	}
 }
 
 .menu__header {
@@ -15,13 +22,70 @@
 }
 
 .menu__nav {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 	grid-area: nav;
-	display: none;
+	position: absolute;
+	right: 30%;
+	bottom: 0;
+	list-style-type: none;
+	transform: translateX(-100%);
+	opacity: 0;
+	transform-origin: top;
+	transition: transform 0.3s ease, opacity 0.2s ease;
+	// transform: translateX(50%);
 
+	&.active {
+		transform: translateX(50%);
+		opacity: 1;
+		transform-origin: top;
+		transition: transform 0.3s ease 0.3s, opacity 0.2s ease 0.3s;
+	}
 	&-item {
+		font-size: 1.5rem;
 	}
 }
 
-.manu__hamburger {
+.menu__hamburger {
 	grid-area: hamburger;
+	width: 2.4rem;
+	height: 2.4rem;
+	justify-self: end;
+	cursor: pointer;
+	position: relative;
+
+	&-line {
+		position: absolute;
+		width: 2.4rem;
+		height: 5px;
+		border-radius: 5px;
+		background-color: transparentize($color: $primary-color, $amount: 0.3);
+
+		&:nth-child(1) {
+			top: 0px;
+			transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
+		}
+		&:nth-child(2) {
+			top: 15px;
+			transition: opacity 0.3s ease 0.3s;
+		}
+		&:nth-child(3) {
+			top: 30px;
+			transition: top 0.3s ease 0.3s, transform 0.3s ease-out 0.1s;
+		}
+		&.active:nth-child(1) {
+			top: 15px;
+			transform: rotate(45deg);
+			transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
+		}
+		&.active:nth-child(2) {
+			opacity: 0;
+		}
+		&.active:nth-child(3) {
+			top: 15px;
+			transform: rotate(-45deg);
+			transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
+		}
+	}
 }
