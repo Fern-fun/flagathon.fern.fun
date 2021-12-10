@@ -2,13 +2,15 @@
 
 .card {
 	width: calc(100% - 40px);
+	max-width: 500px;
 	margin: 20px auto;
 	border-radius: 25px;
-	padding: 1.5rem;
+	padding: 3rem 1.5rem 6rem;
 	background: #fefefe;
 	border: 2px solid transparentize($color: $primary-color, $amount: 0.7);
 	box-shadow: 0px 4px 4px 0px
 		transparentize($color: $primary-color, $amount: 0.75);
+	overflow: hidden;
 }
 
 .card__flex {

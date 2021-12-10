@@ -4,9 +4,13 @@
 	width: 100%;
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(15ch, 1fr));
+	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
 	gap: 1rem;
+
+	@media only screen and (min-width: 500px) {
+		width: 80%;
+	}
 }
 
 .quiz__flag {
@@ -41,11 +45,15 @@
 	// outline: 1px solid red;
 	position: fixed;
 	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
 	padding: 1rem 20px;
 	padding-top: 2rem;
 	width: 100%;
+	max-width: calc(500px + 40px);
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 	gap: 1rem;
 }
 
@@ -60,14 +68,22 @@
 	padding: 1rem 1.6rem;
 }
 
-.correct {
-	background-color: #7ae070;
-	display: block;
+.correct.button {
+	border-color: #53d747;
+
+	&::before {
+		transform: scale(1);
+		background-color: #7ae070;
+	}
 }
 
-.incorrect {
-	background-color: #e86868;
-	display: block;
+.incorrect.button {
+	border-color: #e23c3c;
+
+	&::before {
+		transform: scale(1);
+		background-color: #e86868;
+	}
 }
 
 div.answers__hidden {
@@ -75,6 +91,7 @@ div.answers__hidden {
 	transform: translateX(-100%);
 	opacity: 0;
 	max-height: 0px;
+	z-index: -1;
 }
 .answers {
 	display: flex;
@@ -86,4 +103,5 @@ div.answers__hidden {
 	transition: max-height 0.3s ease, transform 0.3s ease 0.3s,
 		opacity 0.2s ease 0.3s;
 	overflow: hidden;
+	z-index: -1;
 }

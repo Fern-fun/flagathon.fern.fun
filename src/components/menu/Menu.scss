@@ -44,6 +44,10 @@
 	}
 	&-item {
 		font-size: 1.5rem;
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		gap: 0.3125rem;
 	}
 }
 
@@ -87,5 +91,27 @@
 			transform: rotate(-45deg);
 			transition: top 0.3s ease 0.1s, transform 0.3s ease-out 0.5s;
 		}
+	}
+}
+@media only screen and (min-width: 500px) {
+	.menu {
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-areas: "header nav user";
+		height: 74.4px;
+	}
+
+	.menu__hamburger {
+		display: none;
+	}
+
+	.menu__nav {
+		opacity: 1;
+		position: static;
+		transform: translateX(0%);
+		flex-direction: row;
+		gap: 1rem;
+		width: 100%;
+		justify-content: center;
+		transition: unset;
 	}
 }
