@@ -66,6 +66,10 @@
 	border: 2px solid transparentize($color: $primary-color, $amount: 0.8);
 	border-radius: 10px;
 	padding: 1rem 1.6rem;
+
+	.color {
+		min-width: 19ch;
+	}
 }
 
 .correct.button {

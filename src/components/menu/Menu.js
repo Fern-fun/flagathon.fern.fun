@@ -9,7 +9,15 @@ export default function Menu() {
 	};
 
 	return (
-		<div style={{ position: "fixed", top: "0px", left: "0px", right: "0px" }}>
+		<div
+			style={{
+				position: "fixed",
+				top: "0px",
+				left: "0px",
+				right: "0px",
+				zIndex: "3"
+			}}
+		>
 			<div className={`menu outline color${isOpen ? " active" : ""}`}>
 				<h1 className="menu__header major-mono-display">flAgAthon</h1>
 				<ul className={`menu__nav montserrat${isOpen ? " active" : ""}`}>

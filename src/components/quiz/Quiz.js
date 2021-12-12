@@ -256,7 +256,7 @@ export default function Quiz() {
 								return (
 									<div className="quiz__answer">
 										<h3 className="color" style={{ display: "flex" }}>
-											Question number {index + 1} |
+											Question number {index + 1} |{" "}
 											{answer[1] === true ? (
 												<h3 className="icon" style={{ color: "#7ae070" }}>
 													done

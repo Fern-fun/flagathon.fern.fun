@@ -73,11 +73,13 @@ body {
 	transition: all 0.2s ease-in-out;
 	z-index: -1;
 }
-.button:hover::before {
-	transform: scaleX(1);
-}
-.button:hover {
-	border-color: transparentize($color: $primary-color, $amount: 0.5);
+@media screen and (min-width: 500px) {
+	.button:hover::before {
+		transform: scaleX(1);
+	}
+	.button:hover {
+		border-color: transparentize($color: $primary-color, $amount: 0.5);
+	}
 }
 
 .color {
