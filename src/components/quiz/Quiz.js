@@ -81,9 +81,9 @@ export default function Quiz() {
 		setTimeout(() => {
 			// adds the correct answer to the array of past correct answers
 			pastUserAnswers.push([countries[questions[number]], true]);
-			nextFlag();
 			setButtonsDisabled(false);
 			event.target.className -= " correct";
+			nextFlag();
 		}, 500);
 	};
 
@@ -93,9 +93,9 @@ export default function Quiz() {
 		event.target.className += " incorrect";
 		setTimeout(() => {
 			pastUserAnswers.push([event.target.innerText, false]);
-			nextFlag();
 			setButtonsDisabled(false);
 			event.target.className -= " incorrect";
+			nextFlag();
 		}, 500);
 	};
 
@@ -153,7 +153,7 @@ export default function Quiz() {
 		);
 	}
 	// the actual quiz part
-	if (questionNumber !== maxQuestion) {
+	if (questionNumber < maxQuestion) {
 		return (
 			<div style={{ display: "flex", flexDirection: "column" }}>
 				<div className="card quiz__card">
@@ -248,7 +248,7 @@ export default function Quiz() {
 						>
 							<h2 className="color">Your answers</h2>
 							<h2 className="icon color">
-								{expanded ? "expand_more" : "expand_less"}
+								{expanded ? "expand_less" : "expand_more"}
 							</h2>
 						</div>
 						<div className={`answers${expanded ? "" : " answers__hidden"}`}>

@@ -55,6 +55,7 @@
 	flex-direction: row;
 	justify-content: center;
 	gap: 1rem;
+	z-index: 1;
 }
 
 .quiz__nav > .button {
@@ -91,21 +92,39 @@
 }
 
 div.answers__hidden {
-	transition: max-height 0.3s ease 0.3s, transform 0.3s ease, opacity 0.2s ease;
-	transform: translateX(-100%);
+	transition: max-height 0.3s ease 0.1s, transform 0.3s ease, opacity 0.2s ease;
+	transform: scaleY(0);
 	opacity: 0;
 	max-height: 0px;
 	z-index: -1;
 }
+
 .answers {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	transform: translateX(0);
+	transform: scaleY(1);
+	transform-origin: top;
 	opacity: 1;
-	max-height: 1000px;
-	transition: max-height 0.3s ease, transform 0.3s ease 0.3s,
-		opacity 0.2s ease 0.3s;
-	overflow: hidden;
+	max-height: 350px;
+	transition: max-height 0.3s ease, transform 0.3s ease 0.1s,
+		opacity 0.2s ease 0.1s;
 	z-index: -1;
+	overflow-x: hidden;
+	scrollbar-width: thin;
+	scrollbar-color: transparentize($primary-color, 0.3)
+		transparentize($primary-color, 0.8);
+	box-shadow: inset 0px -5px 5px -5px rgb(0 0 0 / 20%),
+		inset 0px 5px 5px -5px rgb(0 0 0 / 20%);
+}
+
+.answers::-webkit-scrollbar {
+	background-color: transparentize($primary-color, 0.8);
+	border-radius: 10px;
+	width: 10px;
+}
+
+.answers::-webkit-scrollbar-thumb {
+	background-color: transparentize($primary-color, 0.4);
+	border-radius: 10px;
 }
