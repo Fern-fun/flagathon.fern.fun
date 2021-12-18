@@ -48,6 +48,12 @@
 		align-items: center;
 		flex-direction: row;
 		gap: 0.3125rem;
+
+		a {
+			all: unset;
+			cursor: pointer;
+			pointer-events: all;
+		}
 	}
 }
 

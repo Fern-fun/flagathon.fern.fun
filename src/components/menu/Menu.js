@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Menu.scss";
 import Hamburger from "./Hamburger";
+import { Link } from "react-router-dom";
 
 export default function Menu() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -22,10 +23,14 @@ export default function Menu() {
 				<h1 className="menu__header major-mono-display">flAgAthon</h1>
 				<ul className={`menu__nav montserrat${isOpen ? " active" : ""}`}>
 					<li className="menu__nav-item">
-						<span className="icon">home</span> Home
+						<Link to="/">
+							<span className="icon">home</span> Home
+						</Link>
 					</li>
 					<li className="menu__nav-item">
-						<span className="icon">play_arrow</span> Play
+						<Link to="/world_quiz">
+							<span className="icon">play_arrow</span> Play
+						</Link>
 					</li>
 					<li className="menu__nav-item">
 						<span className="icon">school</span> Learn
