@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+<p align="center">
+ <a><img width=200px height=200px style="border-radius: 20px; object-fit: cover;" src="https://api.fern.fun/flagathon/flag/random/" alt="Project logo"></a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">flagathon.fern.fun</h1>
 
-## Available Scripts
+<div align="center">
 
-In the project directory, you can run:
+[![GitHub Issues](https://img.shields.io/github/issues/Fern-fun/flagathon.fern.fun.svg)](https://github.com/Fern-fun/flagathon.fern.fun/issues)
+[![License](https://img.shields.io/github/license/Fern-fun/flagathon.fern.fun.svg)](/LICENSE)
 
-### `npm start`
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📝 Table of Contents
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<!-- -  -->
+<!-- - [Deployment](#deployment) -->
+<!-- - [Usage](#usage) -->
+<!-- - [Getting Started](#getting_started)
+- [Built Using](#built_using) -->
 
-### `npm test`
+- [About](#about)
+- [Authors](#authors)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧐 About <a name = "about"></a>
 
-### `npm run build`
+flagathon.fern.fun is a simple quiz game about flags.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⛏️ Built Using <a name = "built_using"></a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [React](https://reactjs.org/)
+- [SCSS](https://sass-lang.com/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📝 License
 
-### `npm run eject`
+This project is [MIT](https://github.com/Fern-fun/flagathon.fern.fun/blob/master/LICENSE) licensed.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## ✍️ Authors <a name = "authors"></a>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [@MrJacob12](https://github.com/mrjacob12)
+- [@Shaking-Donut](https://github.com/Shaking-Donut)
