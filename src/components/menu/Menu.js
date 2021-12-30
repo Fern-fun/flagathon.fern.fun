@@ -33,10 +33,14 @@ export default function Menu() {
 						</Link>
 					</li>
 					<li className="menu__nav-item">
-						<span className="icon">school</span> Learn
+						<Link to="/">
+							<span className="icon">school</span> Learn
+						</Link>
 					</li>
 					<li className="menu__nav-item">
-						<span className="icon">help_outline</span> About
+						<Link to="/">
+							<span className="icon">help_outline</span> About
+						</Link>
 					</li>
 				</ul>
 				<Hamburger open={isOpen} onClick={isOpenHandler} />

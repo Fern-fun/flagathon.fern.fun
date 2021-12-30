@@ -1,5 +1,7 @@
 @use "../../variables.scss" as *;
 
+$spacing: 10px;
+
 .menu {
 	background-color: white;
 	top: 5px;
@@ -48,11 +50,43 @@
 		align-items: center;
 		flex-direction: row;
 		gap: 0.3125rem;
+		position: relative;
 
 		a {
 			all: unset;
 			cursor: pointer;
 			pointer-events: all;
+		}
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			width: 0px;
+			height: 0px;
+			background-color: #d2bcff;
+			transition: width 0.3s ease, height 0.3s ease, filter 0.2s ease 0.2s;
+			z-index: -1;
+		}
+		&::after {
+			right: -$spacing;
+			top: 0;
+		}
+		&::before {
+			left: -$spacing;
+			bottom: 0;
+		}
+	}
+	@media only screen and (min-width: 500px) {
+		&-item:is(:hover, :focus)::before,
+		&-item.active::before {
+			width: calc(100% + ($spacing * 2));
+			height: 100%;
+			filter: drop-shadow(0 0 5px #d2bcff);
+		}
+		&-item:is(:hover, :focus)::after,
+		&-item.active::after {
+			width: calc(100% + ($spacing * 2));
+			height: 100%;
 		}
 	}
 }
@@ -115,7 +149,7 @@
 		position: static;
 		transform: translateX(0%);
 		flex-direction: row;
-		gap: 1rem;
+		gap: 2rem;
 		width: 100%;
 		justify-content: center;
 		transition: unset;
