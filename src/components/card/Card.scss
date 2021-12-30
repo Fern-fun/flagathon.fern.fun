@@ -6,10 +6,11 @@
 	margin: 20px auto;
 	border-radius: 25px;
 	padding: 3rem 1.5rem 6rem;
-	background: #fefefe;
-	border: 2px solid transparentize($color: $primary-color, $amount: 0.7);
-	box-shadow: 0px 4px 4px 0px
-		transparentize($color: $primary-color, $amount: 0.75);
+	background: var(--background-color);
+	border: 2px solid var(--border-color);
+	color: var(--text-color);
+	transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+	box-shadow: 0px 4px 4px 0px var(--shadow-color);
 	overflow: hidden;
 }
 
@@ -21,7 +22,8 @@
 }
 
 .card__heading {
-	color: transparentize($primary-color, 0.3);
+	color: var(--header);
+	transition: color 0.3s ease;
 	text-align: center;
 }
 

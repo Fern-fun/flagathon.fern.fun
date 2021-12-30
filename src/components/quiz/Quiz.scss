@@ -18,7 +18,8 @@
 	margin: 0 auto;
 	object-fit: cover;
 	border-radius: 10px;
-	outline: 1px solid transparentize($primary-color, 0.85);
+	outline: 1px solid var(--flag-outline);
+	transition: outline 0.3s ease;
 }
 
 .quiz__card {
@@ -29,7 +30,8 @@
 }
 
 .quiz__heading {
-	color: transparentize($primary-color, 0.3);
+	color: var(--header);
+	transition: color 0.3s ease;
 	text-align: center;
 }
 
@@ -38,7 +40,8 @@
 }
 
 .quiz__subheader {
-	color: transparentize($color: $primary-color, $amount: 0.4);
+	color: var(--subheader);
+	transition: color 0.3s ease;
 }
 
 .quiz__nav {
@@ -64,7 +67,8 @@
 }
 
 .quiz__answer {
-	border: 2px solid transparentize($color: $primary-color, $amount: 0.8);
+	border: 2px solid var(--border-color);
+	transition: border 0.3s ease;
 	border-radius: 10px;
 	padding: 1rem 1.6rem;
 

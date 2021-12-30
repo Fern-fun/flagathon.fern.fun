@@ -3,7 +3,7 @@
 $spacing: 10px;
 
 .menu {
-	background-color: white;
+	background-color: var(--background-color);
 	top: 5px;
 	width: calc(100% - 10px);
 	left: 5px;
@@ -11,7 +11,7 @@ $spacing: 10px;
 	grid-template-areas: "header hamburger" "nav nav";
 	position: relative;
 	height: 74.4px;
-	transition: height 0.3s ease 0.3s;
+	transition: height 0.3s ease 0.3s, background 0.3s ease;
 
 	&.active {
 		height: calc(74.4px + 159.6px + 5px);
@@ -63,7 +63,7 @@ $spacing: 10px;
 			position: absolute;
 			width: 0px;
 			height: 0px;
-			background-color: #d2bcff;
+			background-color: var(--hover-color);
 			transition: width 0.3s ease, height 0.3s ease, filter 0.2s ease 0.2s;
 			z-index: -1;
 		}
@@ -81,7 +81,7 @@ $spacing: 10px;
 		&-item.active::before {
 			width: calc(100% + ($spacing * 2));
 			height: 100%;
-			filter: drop-shadow(0 0 5px #d2bcff);
+			filter: drop-shadow(0 0 5px var(--hover-color));
 		}
 		&-item:is(:hover, :focus)::after,
 		&-item.active::after {
@@ -153,5 +153,11 @@ $spacing: 10px;
 		width: 100%;
 		justify-content: center;
 		transition: unset;
+	}
+
+	.menu__dark-mode-toggle {
+		grid-area: user;
+		align-self: center;
+		justify-self: end;
 	}
 }

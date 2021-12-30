@@ -1,0 +1,19 @@
+.toggle {
+	background-color: var(--primary-color);
+	height: 2rem;
+	width: 2rem;
+	border-radius: 50%;
+	line-height: 2rem;
+	text-align: center;
+	cursor: pointer;
+
+	& > .icon {
+		color: white;
+		pointer-events: none;
+		font-size: 1.3rem;
+
+		&::selection {
+			background-color: transparent;
+		}
+	}
+}
