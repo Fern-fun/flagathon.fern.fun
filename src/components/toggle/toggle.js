@@ -12,18 +12,24 @@ export default function Toggle(props) {
 	useEffect(() => {
 		setToggleOn(props.checked);
 	}, [props.checked]);
+	useEffect(() => {
+		if (isToggleOn) {
+			lightMode.current.classList.add("active");
+			darkMode.current.classList.remove("active");
+		} else {
+			lightMode.current.classList.remove("active");
+			darkMode.current.classList.add("active");
+		}
+	}, [isToggleOn]);
 
 	return (
 		<div className="toggle menu__dark-mode-toggle" onClick={darkModeHandler}>
-			{isToggleOn ? (
-				<span className="icon" ref={lightMode}>
-					light_mode
-				</span>
-			) : (
-				<span className="icon" ref={darkMode}>
-					dark_mode
-				</span>
-			)}
+			<span className="icon" ref={lightMode}>
+				light_mode
+			</span>
+			<span className="icon" ref={darkMode}>
+				dark_mode
+			</span>
 		</div>
 	);
 }
