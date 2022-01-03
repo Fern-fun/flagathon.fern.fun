@@ -1,10 +1,12 @@
 .toggle {
+	--size: 2rem;
+
 	position: relative;
 	background-color: var(--primary-color);
-	height: 2rem;
-	width: 2rem;
+	height: var(--size);
+	width: var(--size);
 	border-radius: 50%;
-	line-height: 2rem;
+	line-height: var(--size);
 	text-align: center;
 	cursor: pointer;
 	overflow: hidden;
@@ -14,7 +16,7 @@
 	& > .icon {
 		color: white;
 		pointer-events: none;
-		font-size: 1.3rem;
+		font-size: calc(var(--size) - 0.7rem);
 		display: block;
 		position: absolute;
 
@@ -30,5 +32,21 @@
 		&::selection {
 			background-color: transparent;
 		}
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.toggle {
+		--size: 3rem;
+	}
+	.menu .toggle {
+		transition: transform 0.3s ease, opacity 0.2s ease;
+		transform: translateX(-500px);
+		opacity: 0;
+	}
+	.menu.active .toggle {
+		transition: transform 0.3s ease 0.3s, opacity 0.2s ease 0.3s;
+		transform: translateX(0%);
+		opacity: 1;
 	}
 }

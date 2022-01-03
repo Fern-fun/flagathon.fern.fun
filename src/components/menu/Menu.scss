@@ -15,7 +15,7 @@ $spacing: 10px;
 
 	&.active {
 		height: calc(74.4px + 159.6px + 5px);
-		transition: height 0.3s ease;
+		transition: height 0.3s ease, background 0.3s ease;
 	}
 }
 
@@ -104,7 +104,7 @@ $spacing: 10px;
 		width: 2.4rem;
 		height: 5px;
 		border-radius: 5px;
-		background-color: transparentize($color: $primary-color, $amount: 0.3);
+		background-color: var(--text-colorful);
 
 		&:nth-child(1) {
 			top: 0px;
