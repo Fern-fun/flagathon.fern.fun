@@ -36,7 +36,8 @@ body.dark-theme {
 	--header: hsl(258, 100%, 70%);
 	--subheader: hsl(258, 100%, 75%);
 
-	.menu__nav-item:hover {
+	.menu__nav-item:hover,
+	.menu__nav-item.active {
 		color: var(--background-color);
 		transition: color 0.3s ease;
 	}

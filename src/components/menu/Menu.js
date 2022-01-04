@@ -29,6 +29,17 @@ export default function Menu() {
 	useEffect(() => {
 		localStorage.setItem("isDark", JSON.stringify(isDark));
 	}, [isDark]);
+	const menuHandler = (e) => {
+		console.log(e.target);
+		if (e.target.offsetParent.classList.contains("menu__nav-item")) {
+			if (document.querySelector(".menu__nav-item.active")) {
+				document
+					.querySelector(".menu__nav-item.active")
+					.classList.remove("active");
+			}
+			e.target.offsetParent.classList.add("active");
+		}
+	};
 
 	return (
 		<div
@@ -43,22 +54,22 @@ export default function Menu() {
 			<div className={`menu outline color${isOpen ? " active" : ""}`}>
 				<h1 className="menu__header major-mono-display">flAgAthon</h1>
 				<ul className={`menu__nav montserrat${isOpen ? " active" : ""}`}>
-					<li className="menu__nav-item">
+					<li className="menu__nav-item" onClick={menuHandler}>
 						<Link to="/">
 							<span className="icon">home</span> Home
 						</Link>
 					</li>
-					<li className="menu__nav-item">
+					<li className="menu__nav-item" onClick={menuHandler}>
 						<Link to="/play">
 							<span className="icon">play_arrow</span> Play
 						</Link>
 					</li>
-					<li className="menu__nav-item">
+					<li className="menu__nav-item" onClick={menuHandler}>
 						<Link to="/learn">
 							<span className="icon">school</span> Learn
 						</Link>
 					</li>
-					<li className="menu__nav-item">
+					<li className="menu__nav-item" onClick={menuHandler}>
 						<Link to="/about">
 							<span className="icon">help_outline</span> About
 						</Link>
