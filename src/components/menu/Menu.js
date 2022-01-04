@@ -30,15 +30,15 @@ export default function Menu() {
 		localStorage.setItem("isDark", JSON.stringify(isDark));
 	}, [isDark]);
 	const menuHandler = (e) => {
-		console.log(e.target);
-		if (e.target.offsetParent.classList.contains("menu__nav-item")) {
-			if (document.querySelector(".menu__nav-item.active")) {
-				document
-					.querySelector(".menu__nav-item.active")
-					.classList.remove("active");
-			}
-			e.target.offsetParent.classList.add("active");
-		}
+		// console.log(e.target);
+		// if (e.target.offsetParent.classList.contains("menu__nav-item")) {
+		// 	if (document.querySelector(".menu__nav-item.active")) {
+		// 		document
+		// 			.querySelector(".menu__nav-item.active")
+		// 			.classList.remove("active");
+		// 	}
+		// 	e.target.offsetParent.classList.add("active");
+		// }
 	};
 
 	return (
