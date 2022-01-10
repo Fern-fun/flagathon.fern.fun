@@ -1,3 +1,5 @@
+@use "../../variables.scss" as *;
+
 .toggle {
 	--size: 2rem;
 
@@ -35,7 +37,7 @@
 	}
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: $mobile) {
 	.toggle {
 		--size: 3rem;
 	}
