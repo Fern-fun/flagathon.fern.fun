@@ -57,3 +57,11 @@ export const getCodes = () => {
       return data;
     });
 };
+
+export const guessRandomFlag = (e, cc, countries, setReloadRandomCountry) => {
+  const flag = e.target.value;
+  if (countries[cc] === flag) {
+    setReloadRandomCountry((e) => !e);
+    e.target.value = "";
+  }
+};
