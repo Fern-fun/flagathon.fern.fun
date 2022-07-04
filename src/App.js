@@ -6,22 +6,37 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Learn from "./components/learn/Learn.js";
 import About from "./components/about/About.js";
 
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from "react-device-detect";
+import Mobile from "./components/mobile/Mobile.js";
+
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Menu></Menu>
+    <>
+      <BrowserView>
+        <Router>
+          <div className="App">
+            <Menu></Menu>
 
-        <Routes>
-          <Route exact path="/" element={<MainMenu />} />
-          <Route path="/play" element={<Quiz />} />
-          <Route path="/learn" element={<Learn />} />
-          <Route path="/about" element={<About />} />
+            <Routes>
+              <Route exact path="/" element={<MainMenu />} />
+              <Route path="/play" element={<Quiz />} />
+              <Route path="/learn" element={<Learn />} />
+              <Route path="/about" element={<About />} />
 
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
-      </div>
-    </Router>
+              <Route path="*" element={<NoMatch />} />
+            </Routes>
+          </div>
+        </Router>
+      </BrowserView>
+      <MobileView>
+        <Mobile />
+      </MobileView>
+    </>
   );
 }
 
